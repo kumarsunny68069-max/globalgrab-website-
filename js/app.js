@@ -1,3 +1,6 @@
+// Global Grab WhatsApp Configuration
+const WHATSAPP_NUMBER = '919317091542'; // Global Grab active WhatsApp number
+
 // Indian Rupee formatter
 function formatINR(amount) {
   return '₹' + amount.toLocaleString('en-IN');
@@ -191,12 +194,12 @@ function renderCatalog() {
     if(halfStar) starsHtml += `<svg fill="currentColor" viewBox="0 0 20 20" style="opacity:0.5;"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
     for(let i=0; i<emptyStars; i++) starsHtml += `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="opacity:0.3;"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499c.15-.469.83-.469.98 0l2.64 8.12a1 1 0 00.95.69h8.518c.5 0 .708.63.302.946l-6.89 5.003a1 1 0 00-.364 1.118l2.64 8.12c.15.469-.383.856-.8.566l-6.89-5.004a1 1 0 00-1.175 0l-6.89 5.004c-.417.29-.95-.097-.8-.566l2.64-8.12a1 1 0 00-.364-1.118L2.43 13.265c-.406-.317-.198-.946.302-.946h8.518a1 1 0 00.95-.69l2.64-8.12z"/></svg>`;
     return `
-      <article class="product-card" data-id="${product.id}">
+      <article class="product-card" data-id="${product.id}" onclick="openProductDetail('${product.id}')">
         <div class="product-img-wrapper">
           ${product.rating >= 4.9 ? '<span class="product-badge">Best Seller</span>' : ''}
           <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
           <div class="product-quick-view">
-            <button onclick="openProductDetail('${product.id}')">Quick View</button>
+            <button onclick="event.stopPropagation(); openProductDetail('${product.id}')">Quick View</button>
           </div>
         </div>
         <div class="product-info">
@@ -208,7 +211,7 @@ function renderCatalog() {
           </div>
           <div class="product-bottom">
             <span class="product-price">${formatINR(product.price)}</span>
-            <button class="product-add-btn" aria-label="Add to cart" onclick="quickAddToCart('${product.id}')">
+            <button class="product-add-btn" aria-label="Add to cart" onclick="event.stopPropagation(); quickAddToCart('${product.id}')">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
@@ -288,19 +291,19 @@ function setupEventListeners() {
   });
 
   // Mobile hamburger menu toggle
-  if (DOM.mobileMenuBtn) {
+  if (DOM.mobileMenuBtn && DOM.navMenu) {
     DOM.mobileMenuBtn.addEventListener('click', () => {
-      DOM.navMenu.style.display = DOM.navMenu.style.display === 'flex' ? 'none' : 'flex';
-      DOM.navMenu.style.position = 'absolute';
-      DOM.navMenu.style.top = '100%';
-      DOM.navMenu.style.left = '0';
-      DOM.navMenu.style.width = '100%';
-      DOM.navMenu.style.background = 'rgba(10, 10, 12, 0.95)';
-      DOM.navMenu.style.backdropFilter = 'blur(10px)';
-      DOM.navMenu.style.padding = '2rem';
-      DOM.navMenu.style.flexDirection = 'column';
-      DOM.navMenu.style.alignItems = 'center';
-      DOM.navMenu.style.borderBottom = '1px solid var(--border-color)';
+      DOM.mobileMenuBtn.classList.toggle('active');
+      DOM.navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when nav link is clicked
+    const mobileLinks = DOM.navMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        DOM.mobileMenuBtn.classList.remove('active');
+        DOM.navMenu.classList.remove('active');
+      });
     });
   }
 
@@ -745,14 +748,10 @@ function updateCheckoutStepUI() {
   // Footer button configurations
   if (state.checkoutStep === 1) {
     DOM.checkoutBackBtn.style.display = 'none';
-    DOM.checkoutNextBtn.textContent = 'Continue to Payment';
-    DOM.checkoutNextBtn.style.display = 'flex';
-  } else if (state.checkoutStep === 2) {
-    DOM.checkoutBackBtn.style.display = 'flex';
-    DOM.checkoutNextBtn.textContent = `Pay ${formatINR(Math.round(state.billing.total))}`;
+    DOM.checkoutNextBtn.textContent = 'Place Order on WhatsApp';
     DOM.checkoutNextBtn.style.display = 'flex';
   } else {
-    // Success panel
+    // Success / WhatsApp Redirect panel
     DOM.checkoutBackBtn.style.display = 'none';
     DOM.checkoutNextBtn.style.display = 'none';
   }
@@ -773,53 +772,64 @@ function validateShippingForm() {
   return isValid;
 }
 
-// Validate inputs of step 2 (Payment Form)
-function validatePaymentForm() {
-  const inputs = DOM.paymentForm.querySelectorAll('input[required]');
-  let isValid = true;
-  inputs.forEach(input => {
-    if (!input.value.trim()) {
-      input.style.borderColor = 'var(--color-accent-pink)';
-      isValid = false;
-    } else {
-      input.style.borderColor = '';
-    }
-  });
-  return isValid;
-}
-
-// Next Step Action
+// Next Step Action - WhatsApp Redirect
 function handleCheckoutNext() {
   if (state.checkoutStep === 1) {
     if (validateShippingForm()) {
+      // Gather Form values
+      const firstName = document.getElementById('shipping-first-name').value.trim();
+      const lastName = document.getElementById('shipping-last-name').value.trim();
+      const address = document.getElementById('shipping-address').value.trim();
+      const city = document.getElementById('shipping-city').value.trim();
+      const zip = document.getElementById('shipping-zip').value.trim();
+      const phone = document.getElementById('shipping-phone').value.trim();
+      const email = document.getElementById('shipping-email').value.trim();
+      
+      const orderId = 'GG-' + Math.floor(100000 + Math.random() * 900000);
+      DOM.successOrderId.textContent = orderId;
+      
+      // Compile professional WhatsApp Order Message
+      let msg = `*🛍️ NEW ORDER - GLOBAL GRAB*\n`;
+      msg += `----------------------------------\n`;
+      msg += `*Order ID:* ${orderId}\n`;
+      msg += `*Customer:* ${firstName} ${lastName}\n`;
+      msg += `*Phone:* ${phone}\n`;
+      msg += `*Email:* ${email}\n`;
+      msg += `*Delivery Address:* ${address}, ${city} - ${zip}\n\n`;
+      msg += `*👖 ARTICLES ORDERED:* \n`;
+      
+      state.cart.forEach(item => {
+        msg += `• ${item.name} (${item.category})\n`;
+        msg += `   Size: *${item.size}* | Qty: *${item.quantity}* | Price: *${formatINR(item.price * item.quantity)}*\n`;
+      });
+      
+      msg += `\n*Grand Total:* *${formatINR(Math.round(state.billing.total))}*\n`;
+      msg += `----------------------------------\n`;
+      msg += `Please confirm my order and share payment details! 🙏`;
+      
+      // Construct redirection URL
+      const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      
+      // Set link on success overlay button in case popup gets blocked
+      const waButton = document.getElementById('whatsapp-direct-btn');
+      if (waButton) {
+        waButton.href = whatsappUrl;
+      }
+      
+      // Try to open WhatsApp automatically in a new tab
+      window.open(whatsappUrl, '_blank');
+      
+      // Set to success page
       state.checkoutStep = 2;
       updateCheckoutStepUI();
-    }
-  } else if (state.checkoutStep === 2) {
-    if (validatePaymentForm()) {
-      // Mock payment loading processing
-        DOM.checkoutNextBtn.disabled = true;
-      DOM.checkoutNextBtn.textContent = 'Processing Payment...';
       
-      setTimeout(() => {
-        // Complete checkout
-        state.checkoutStep = 3;
-        DOM.checkoutNextBtn.disabled = false;
-        
-        // Generate random order ID
-        const orderId = 'GG-' + Math.floor(100000 + Math.random() * 900000);
-        DOM.successOrderId.textContent = orderId;
-        
-        updateCheckoutStepUI();
-        
-        // Success actions: Clear cart
-        state.cart = [];
-        saveCart();
-        updateCartUI();
-        
-        // Trigger visual celebration (confetti)
-        triggerConfetti();
-      }, 1500);
+      // Clear Cart
+      state.cart = [];
+      saveCart();
+      updateCartUI();
+      
+      // Celebrate
+      triggerConfetti();
     }
   }
 }
@@ -832,44 +842,8 @@ function handleCheckoutBack() {
   }
 }
 
-// Setup payment field visual mockup syncing
-function setupCardVisuals() {
-  if (!DOM.cardNumInput) return;
-  
-  DOM.cardNumInput.addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '');
-    val = val.substring(0, 16);
-    let formatted = val.match(/.{1,4}/g)?.join(' ') || '';
-    e.target.value = formatted;
-    
-    DOM.mockCardNumber.textContent = formatted || '•••• •••• •••• ••••';
-    
-    // Choose dynamic card themes based on first digits
-    if (val.startsWith('4')) {
-      DOM.mockCard.className = 'credit-card cyan-blue';
-    } else {
-      DOM.mockCard.className = 'credit-card';
-    }
-  });
-
-  DOM.cardNameInput.addEventListener('input', (e) => {
-    DOM.mockCardName.textContent = e.target.value || 'CARDHOLDER NAME';
-  });
-
-  DOM.cardExpiryInput.addEventListener('input', (e) => {
-    let val = e.target.value.replace(/\D/g, '');
-    if (val.length > 2) {
-      val = val.substring(0, 2) + '/' + val.substring(2, 4);
-    }
-    e.target.value = val;
-    DOM.mockCardExpiry.textContent = val || 'MM/YY';
-  });
-
-  DOM.cardCvvInput.addEventListener('input', (e) => {
-    // limit 3 digits
-    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
-  });
-}
+// Card visual setup (No-op since payment panel is removed)
+function setupCardVisuals() {}
 
 // Simple CSS-based Confetti visual celebration
 function triggerConfetti() {
@@ -921,8 +895,25 @@ function triggerConfetti() {
 /* --- 3D MOUSE TRACKING TILT EFFECT --- */
 
 function apply3DTilt() {
+  const isMobile = window.innerWidth <= 768;
+  
+  if (isMobile) {
+    // Reset cards styles on mobile to ensure clean standard layout
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.style.transform = '';
+      card.style.transition = '';
+      card.style.background = '';
+    });
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.style.transform = '';
+      card.style.transition = '';
+    });
+    return;
+  }
+
   // Product Cards 3D Tilt
   document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth <= 768) return;
     const cards = document.querySelectorAll('.product-card');
     cards.forEach(card => {
       const rect = card.getBoundingClientRect();
@@ -956,6 +947,7 @@ function apply3DTilt() {
   // Category Cards subtle 3D tilt
   document.querySelectorAll('.category-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 768) return;
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -969,6 +961,11 @@ function apply3DTilt() {
     });
 
     card.addEventListener('mouseleave', () => {
+      if (window.innerWidth <= 768) {
+        card.style.transform = '';
+        card.style.transition = '';
+        return;
+      }
       card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0) scale(1)';
       card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
     });
