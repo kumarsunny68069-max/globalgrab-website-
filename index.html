@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Global Grab - The ultimate luxury streetwear store for Baggy Jeans. Discover skate wide-leg cargo jeans, distressed vintage denim, and custom graffiti prints. Premium raw denim, delivered worldwide.">
+  <meta name="keywords" content="baggy jeans, streetwear denim, wide leg jeans, skater jeans, graffiti jeans, techwear cargos, global grab jeans">
+  <title>Global Grab | Premium Streetwear Baggy Jeans Store</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- --- HEADER / NAVIGATION --- -->
+  <header id="site-header">
+    <div class="container header-container">
+      <!-- Logo -->
+      <a href="#" class="logo" id="header-logo">
+        GLOBAL GRAB<span>Denim</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav id="desktop-nav">
+        <ul>
+          <li><a href="#" class="active" id="nav-home">Home</a></li>
+          <li><a href="#products-section" id="nav-shop">Denim</a></li>
+          <li><a href="#footer-section" id="nav-about">About Us</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Global Search -->
+        <div class="search-bar" id="header-search-bar">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.637 10.637Z" />
+          </svg>
+          <input type="text" id="global-search-input" placeholder="Search baggy denim..." aria-label="Search catalog">
+        </div>
+
+        <!-- Cart Button -->
+        <button class="cart-toggle-btn" id="cart-toggle" aria-label="Open Shopping Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          </svg>
+          <span class="cart-count" id="cart-count-badge">0</span>
+        </button>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle Navigation Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- --- HERO SECTION --- -->
+    <section class="hero" id="hero-section">
+      <div class="hero-bg" style="background-image: url('assets/hero_bg.jpg');" id="hero-bg-image"></div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 22h20L12 2z"/></svg>
+            ✦ New Drop // Global Grab
+          </div>
+          <h1>
+            <span>EFFORTLESS</span>
+            <span class="text-gradient">BAGGY JEANS</span>
+          </h1>
+          <p>
+            Ye jeans apne aap bolta hai. Wide leg, heavy wash, aur ek vibe jo crowd mein alag dikh jaaye. Global Grab ke saath apna drip lock karo.
+          </p>
+          <div class="hero-btns">
+            <a href="#products-section" class="btn-primary" id="hero-shop-btn">
+              Shop The Fit
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 18px; height: 18px;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- FEATURED CATEGORIES --- -->
+    <section class="categories" id="categories-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Select Style</h2>
+            <p>Denim cuts designed for the ultimate stacking profile.</p>
+          </div>
+        </div>
+
+        <div class="category-grid">
+          <!-- Utility -->
+          <a href="#products-section" class="category-card" onclick="state.activeFilter='utility'; renderCatalog();" id="cat-card-utility">
+            <img src="assets/jean1.jpeg" alt="Utility Baggy Jeans with Straps and Cargo pockets" loading="lazy">
+            <div class="category-overlay">
+              <h3>Utility / Cargo</h3>
+              <span>Shop Collection &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Washed -->
+          <a href="#products-section" class="category-card" onclick="state.activeFilter='washed'; renderCatalog();" id="cat-card-washed">
+            <img src="assets/jean3.jpeg" alt="Distressed and Bleach Washed Baggy Jeans" loading="lazy">
+            <div class="category-overlay">
+              <h3>Washed / Distressed</h3>
+              <span>Shop Collection &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Printed -->
+          <a href="#products-section" class="category-card" onclick="state.activeFilter='printed'; renderCatalog();" id="cat-card-printed">
+            <img src="assets/baggy_jeans_printed.jpeg" alt="Graffiti Printed Baggy Jeans" loading="lazy">
+            <div class="category-overlay">
+              <h3>Graphic / Printed</h3>
+              <span>Shop Collection &rarr;</span>
+            </div>
+          </a>
+
+          <!-- Classic -->
+          <a href="#products-section" class="category-card" onclick="state.activeFilter='classic'; renderCatalog();" id="cat-card-classic">
+            <img src="assets/bagy.png" alt="Raw Selvedge Japanese Baggy Jeans" loading="lazy">
+            <div class="category-overlay">
+              <h3>Raw / Classic</h3>
+              <span>Shop Collection &rarr;</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- --- CATALOG SECTION --- -->
+    <section class="products-section" id="products-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>Denim Catalog</h2>
+            <p>High-end 14.5oz heavy wide-leg denim releases.</p>
+          </div>
+        </div>
+
+        <!-- Filters and Controls Bar -->
+        <div class="controls-bar">
+          <ul class="filter-tabs" id="catalog-filter-tabs">
+            <li><button class="filter-tab active" data-filter="all" id="filter-all">All Jeans</button></li>
+            <li><button class="filter-tab" data-filter="baggy" id="filter-baggy">🔵 Baggy</button></li>
+            <li><button class="filter-tab" data-filter="super-baggy" id="filter-super-baggy">🔥 Super Baggy</button></li>
+          </ul>
+
+          <div class="sorting-controls">
+            <!-- Catalog Specific Search -->
+            <div class="search-bar" style="margin-right: 1rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.637 10.637Z" />
+              </svg>
+              <input type="text" id="search-input" placeholder="Search washes..." aria-label="Search within category">
+            </div>
+
+            <span>Sort By</span>
+            <select id="sort-select" aria-label="Sort products list">
+              <option value="default">Default</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Products Grid Container -->
+        <div class="products-grid" id="products-grid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+
+
+  <!-- --- OVERLAY: SLIDE-OUT CART DRAWER --- -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay">
+    <aside class="cart-drawer" id="cart-drawer-panel" aria-label="Shopping Cart">
+      <!-- Cart Header -->
+      <div class="cart-header">
+        <h2>Your Cart <span id="cart-item-count-header">0 items</span></h2>
+        <button class="cart-close-btn" id="cart-close" aria-label="Close Cart">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Shipping Progress Indicator -->
+      <div class="shipping-progress" id="cart-shipping-progress">
+        <p class="shipping-message" id="shipping-progress-msg">Spend <span>$55.00</span> more for Free Shipping</p>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="shipping-progress-bar"></div>
+        </div>
+      </div>
+
+      <!-- Cart Scrollable Items Area -->
+      <div class="cart-items" id="cart-items-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Cart Footer Breakdown -->
+      <div class="cart-footer">
+        <div class="cart-totals">
+          <div class="cart-total-row">
+            <span>Subtotal</span>
+            <span id="cart-subtotal">$0.00</span>
+          </div>
+          <div class="cart-total-row" style="font-size: 0.85rem; color: var(--text-muted);">
+            <span>Shipping & Tax calculated at checkout</span>
+          </div>
+          <div class="cart-total-row grand-total">
+            <span>Total</span>
+            <span id="cart-subtotal-grand">$0.00</span>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="cart-checkout-btn">
+          Checkout
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 18px; height: 18px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- --- OVERLAY: PRODUCT DETAIL DIALOG / MODAL --- -->
+  <div class="detail-modal-overlay" id="detail-modal-overlay">
+    <dialog class="detail-modal" id="detail-modal-box" open="false">
+      <!-- Close Button -->
+      <button class="detail-close-btn" id="detail-close-btn" aria-label="Close details">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Gallery (Left Grid Pane) -->
+      <div class="detail-gallery">
+        <div class="detail-main-img" id="detail-main-img-el">
+          <!-- Inserted dynamically -->
+        </div>
+        <div class="detail-thumbnails" id="detail-thumbnails">
+          <!-- Inserted dynamically -->
+        </div>
+      </div>
+
+      <!-- Specs & Details (Right Grid Pane) -->
+      <div class="detail-content">
+        <span class="product-category" id="detail-category">washed</span>
+        <h2 class="detail-title" id="detail-title">Acid Indigo Distressed Jeans</h2>
+        
+        <div class="product-rating">
+          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <span id="detail-rating-val">4.8</span>
+          <span class="text-secondary" id="detail-reviews-count">(142 verified reviews)</span>
+        </div>
+
+        <div class="detail-price" id="detail-price">$110.00</div>
+        
+        <p class="detail-description" id="detail-description">
+          Heavily distressed light-wash blue baggy denim featuring ripped details at the knees and a shredded hem.
+        </p>
+
+        <!-- Product Configurations -->
+        <div class="option-group">
+          <div class="option-label">Select Waist Size (Inches)</div>
+          <div class="size-selector" id="detail-sizes">
+            <!-- Chips -->
+          </div>
+        </div>
+
+        <div class="option-group">
+          <div class="option-label">Select Wash / Color</div>
+          <div class="color-selector" id="detail-colors">
+            <!-- Rings -->
+          </div>
+        </div>
+
+        <div class="option-group">
+          <div class="option-label">Denim Specs</div>
+          <ul class="features-list" id="detail-features">
+            <!-- List Bullets -->
+          </ul>
+        </div>
+
+        <div class="detail-add-wrapper">
+          <button class="btn-primary" id="detail-add-to-cart-btn">
+            Add to Cart
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" style="width: 18px; height: 18px;">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </dialog>
+  </div>
+
+  <!-- --- OVERLAY: CHECKOUT MODAL FLOW --- -->
+  <div class="checkout-modal-overlay" id="checkout-modal-overlay">
+    <div class="checkout-modal" id="checkout-modal-box">
+      <!-- Checkout Header -->
+      <div class="checkout-header">
+        <div class="checkout-steps">
+          <div class="checkout-step-indicator active" data-step="1" id="step-ind-1">
+            <span>1</span> Shipping
+          </div>
+          <div class="checkout-step-indicator" data-step="2" id="step-ind-2">
+            <span>2</span> Payment
+          </div>
+          <div class="checkout-step-indicator" data-step="3" id="step-ind-3">
+            <span>3</span> Confirm
+          </div>
+        </div>
+        <button class="checkout-close-btn" id="checkout-close-btn" aria-label="Close Checkout">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 16px; height: 16px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Checkout Body Panels -->
+      <div class="checkout-content">
+        <!-- Step 1 Panel: Shipping Info -->
+        <section class="checkout-panel active" id="checkout-panel-1" aria-label="Shipping Address">
+          <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem;">Delivery Information</h3>
+          <form id="shipping-form" onsubmit="return false;">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="shipping-first-name">First Name</label>
+                <input type="text" id="shipping-first-name" placeholder="John" required>
+              </div>
+              <div class="form-group">
+                <label for="shipping-last-name">Last Name</label>
+                <input type="text" id="shipping-last-name" placeholder="Doe" required>
+              </div>
+              <div class="form-group-full form-group">
+                <label for="shipping-address">Shipping Address</label>
+                <input type="text" id="shipping-address" placeholder="128 Techwear Blvd Apt 4C" required>
+              </div>
+              <div class="form-group">
+                <label for="shipping-city">City</label>
+                <input type="text" id="shipping-city" placeholder="New York" required>
+              </div>
+              <div class="form-group">
+                <label for="shipping-zip">Postal/ZIP Code</label>
+                <input type="text" id="shipping-zip" placeholder="10001" required>
+              </div>
+              <div class="form-group">
+                <label for="shipping-email">Email Address</label>
+                <input type="email" id="shipping-email" placeholder="johndoe@globalgrab.com" required>
+              </div>
+              <div class="form-group">
+                <label for="shipping-phone">Phone Number</label>
+                <input type="tel" id="shipping-phone" placeholder="+1 (555) 019-2834" required>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Step 2 Panel: Payment Details -->
+        <section class="checkout-panel" id="checkout-panel-2" aria-label="Payment Gateway">
+          <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem;">Secure Payment</h3>
+          
+          <!-- Mock Credit Card visual graphics -->
+          <div class="card-preview-wrapper">
+            <div class="credit-card" id="mock-credit-card">
+              <div class="card-chip"></div>
+              <div class="card-number" id="mock-card-number">•••• •••• •••• ••••</div>
+              <div class="card-bottom-row">
+                <div>
+                  <div class="card-holder" id="mock-card-name">CARDHOLDER NAME</div>
+                </div>
+                <div class="card-expiry" id="mock-card-expiry">MM/YY</div>
+              </div>
+            </div>
+          </div>
+
+          <form id="payment-form" onsubmit="return false;">
+            <div class="form-grid">
+              <div class="form-group-full form-group">
+                <label for="card-name-input">Cardholder Name</label>
+                <input type="text" id="card-name-input" placeholder="JOHN DOE" required autocomplete="cc-name">
+              </div>
+              <div class="form-group-full form-group">
+                <label for="card-number-input">Card Number</label>
+                <input type="text" id="card-number-input" placeholder="4111 2222 3333 4444" required autocomplete="cc-number">
+              </div>
+              <div class="form-group">
+                <label for="card-expiry-input">Expiration Date</label>
+                <input type="text" id="card-expiry-input" placeholder="MM/YY" required autocomplete="cc-exp">
+              </div>
+              <div class="form-group">
+                <label for="card-cvv-input">CVV / Security Code</label>
+                <input type="password" id="card-cvv-input" placeholder="•••" required autocomplete="cc-csc">
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <!-- Step 3 Panel: Success Message -->
+        <section class="checkout-panel" id="checkout-panel-3" aria-label="Order Confirmation">
+          <div class="success-panel">
+            <div class="success-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
+            </div>
+            <h3>Order Confirmed!</h3>
+            <p>Thank you for shopping at Global Grab. Your baggy denim is being packed for delivery.</p>
+            <div class="success-order-id" id="success-order-id">GG-892401</div>
+            <button class="btn-primary" onclick="closeCheckoutModal()" style="margin-top: 1rem;">Continue Browsing</button>
+          </div>
+        </section>
+
+        <!-- Billing Summary Sidebar Details -->
+        <div class="checkout-sidebar-summary" id="checkout-sidebar-summary" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+          <h4 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Order Details</h4>
+          
+          <div id="checkout-summary-items">
+            <!-- Dynamic Items -->
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem; color: var(--text-secondary); margin-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between;">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal">$0.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Shipping</span>
+              <span id="checkout-shipping">FREE</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Estimated Tax (8.5%)</span>
+              <span id="checkout-tax">$0.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 700; color: #fff; border-top: 1px solid var(--border-color); padding-top: 0.6rem; margin-top: 0.4rem;">
+              <span>Grand Total</span>
+              <span id="checkout-total">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Checkout Footer Controls -->
+      <div class="checkout-footer" id="checkout-footer-controls">
+        <button class="btn-secondary" id="checkout-back-btn" style="padding: 0.6rem 1.4rem;">Back</button>
+        <button class="btn-primary" id="checkout-next-btn" style="padding: 0.6rem 1.8rem; margin-left: auto;">
+          Continue to Payment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- --- FOOTER --- -->
+  <footer id="footer-section">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand Info -->
+        <div class="footer-brand">
+          <a href="#" class="logo" style="font-size: 1.5rem;">GLOBAL GRAB</a>
+          <p>Effortless luxury streetwear, delivering modular baggy and super baggy wide-leg denim cuts across the globe.</p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/global_grab_01/" target="_blank" class="social-link" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="TikTok">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .8.11V9.4a6.27 6.27 0 0 0-3.11-.3A6.3 6.3 0 0 0 2 15.33a6.32 6.32 0 0 0 10.82 4.45V10.5a8.28 8.28 0 0 0 4.77 1.48V8.58a4.86 4.86 0 0 1 2-1.89z"/></svg>
+            </a>
+            <a href="#" class="social-link" aria-label="Discord">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.873-.894.077.077 0 0 1-.008-.128c.126-.093.252-.19.372-.287a.075.075 0 0 1 .077-.011c3.92 1.793 8.18 1.793 12.061 0a.073.073 0 0 1 .078.009c.12.099.246.195.373.289a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.156 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.156-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.156 2.418z"/></svg>
+            </a>
+          </div>
+          <div style="margin-top: 0.5rem; font-size: 0.95rem;">
+            <a href="https://www.instagram.com/global_grab_01/" target="_blank" style="color: var(--text-primary); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width: 16px; height: 16px; color: #e1306c;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              @global_grab_01
+            </a>
+          </div>
+        </div>
+
+        <!-- Links Col 1 -->
+        <div class="footer-column">
+          <h4>Customer Care</h4>
+          <ul>
+            <li><a href="#">Contact Global Grab</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Waist Size Guide</a></li>
+            <li><a href="#">Exchange on Size</a></li>
+            <li><a href="#">Track Package</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer-newsletter">
+          <h4>Drop Notifications</h4>
+          <p style="margin-bottom: 1.2rem; line-height: 1.5;">Subscribe to receive early notifications for Drop 05, exclusive lookup vouchers, and special alerts.</p>
+          <form class="newsletter-form" onsubmit="alert('Subscribed to drop alerts!'); return false;">
+            <input type="email" placeholder="ENTER YOUR EMAIL" aria-label="Newsletter email address" required>
+            <button type="submit">SUBSCRIBE</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>&copy; 2026 GLOBAL GRAB denim store. All Rights Reserved. Designed for premium skater aesthetics.</p>
+        <p>Terms of Service &bull; Privacy Policy &bull; Cookie Preferences</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- --- SCRIPTS --- -->
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
