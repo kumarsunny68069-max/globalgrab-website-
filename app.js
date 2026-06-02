@@ -98,7 +98,7 @@ const DOM = {
 };
 
 // Initialize Application
-document.addEventListener('DOMContentLoaded', () => {
+function initApp() {
   // Load mock products
   state.products = window.PRODUCTS || [];
   
@@ -113,7 +113,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Initial cart UI update
   updateCartUI();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
 // Load Cart from localStorage
 function loadCart() {
@@ -994,10 +1000,17 @@ document.head.appendChild(floatStyle);
 
 // Re-apply 3D tilt after catalog re-renders
 const _origRenderCatalog = window.renderCatalog || renderCatalog;
-document.addEventListener('DOMContentLoaded', () => {
+
+function initTiltOnReady() {
   apply3DTilt();
   // Re-apply on catalog mutations
   const observer = new MutationObserver(() => apply3DTilt());
   const grid = document.getElementById('products-grid');
   if (grid) observer.observe(grid, { childList: true });
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initTiltOnReady);
+} else {
+  initTiltOnReady();
+}
