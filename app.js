@@ -706,19 +706,21 @@ function renderCheckoutSummary() {
   `;
     }).join('');
   
-  // Calculation
+  // Calculation (Tax & Shipping are FREE)
   const subtotal = state.billing.subtotal;
-  const shipping = subtotal >= 5000 ? 0 : 99; // ₹99 shipping or FREE above ₹5000
-  const tax = subtotal * 0.18; // 18% GST (India)
-  const total = subtotal + shipping + tax;
+  const shipping = 0;
+  const tax = 0;
+  const total = subtotal;
   
   state.billing.shipping = shipping;
   state.billing.tax = tax;
   state.billing.total = total;
   
   DOM.checkoutSubtotal.textContent = formatINR(subtotal);
-  DOM.checkoutShipping.textContent = shipping === 0 ? 'FREE' : formatINR(shipping);
-  DOM.checkoutTax.textContent = formatINR(Math.round(tax));
+  DOM.checkoutShipping.textContent = 'FREE';
+  if (DOM.checkoutTax) {
+    DOM.checkoutTax.textContent = formatINR(0);
+  }
   DOM.checkoutTotal.textContent = formatINR(Math.round(total));
 }
 
