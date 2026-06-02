@@ -191,12 +191,12 @@ function renderCatalog() {
     if(halfStar) starsHtml += `<svg fill="currentColor" viewBox="0 0 20 20" style="opacity:0.5;"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>`;
     for(let i=0; i<emptyStars; i++) starsHtml += `<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="opacity:0.3;"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499c.15-.469.83-.469.98 0l2.64 8.12a1 1 0 00.95.69h8.518c.5 0 .708.63.302.946l-6.89 5.003a1 1 0 00-.364 1.118l2.64 8.12c.15.469-.383.856-.8.566l-6.89-5.004a1 1 0 00-1.175 0l-6.89 5.004c-.417.29-.95-.097-.8-.566l2.64-8.12a1 1 0 00-.364-1.118L2.43 13.265c-.406-.317-.198-.946.302-.946h8.518a1 1 0 00.95-.69l2.64-8.12z"/></svg>`;
     return `
-      <article class="product-card" data-id="${product.id}">
+      <article class="product-card" data-id="${product.id}" onclick="openProductDetail('${product.id}')">
         <div class="product-img-wrapper">
           ${product.rating >= 4.9 ? '<span class="product-badge">Best Seller</span>' : ''}
           <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
           <div class="product-quick-view">
-            <button onclick="openProductDetail('${product.id}')">Quick View</button>
+            <button onclick="event.stopPropagation(); openProductDetail('${product.id}')">Quick View</button>
           </div>
         </div>
         <div class="product-info">
@@ -208,7 +208,7 @@ function renderCatalog() {
           </div>
           <div class="product-bottom">
             <span class="product-price">${formatINR(product.price)}</span>
-            <button class="product-add-btn" aria-label="Add to cart" onclick="quickAddToCart('${product.id}')">
+            <button class="product-add-btn" aria-label="Add to cart" onclick="event.stopPropagation(); quickAddToCart('${product.id}')">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
               </svg>
@@ -288,19 +288,19 @@ function setupEventListeners() {
   });
 
   // Mobile hamburger menu toggle
-  if (DOM.mobileMenuBtn) {
+  if (DOM.mobileMenuBtn && DOM.navMenu) {
     DOM.mobileMenuBtn.addEventListener('click', () => {
-      DOM.navMenu.style.display = DOM.navMenu.style.display === 'flex' ? 'none' : 'flex';
-      DOM.navMenu.style.position = 'absolute';
-      DOM.navMenu.style.top = '100%';
-      DOM.navMenu.style.left = '0';
-      DOM.navMenu.style.width = '100%';
-      DOM.navMenu.style.background = 'rgba(10, 10, 12, 0.95)';
-      DOM.navMenu.style.backdropFilter = 'blur(10px)';
-      DOM.navMenu.style.padding = '2rem';
-      DOM.navMenu.style.flexDirection = 'column';
-      DOM.navMenu.style.alignItems = 'center';
-      DOM.navMenu.style.borderBottom = '1px solid var(--border-color)';
+      DOM.mobileMenuBtn.classList.toggle('active');
+      DOM.navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when nav link is clicked
+    const mobileLinks = DOM.navMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        DOM.mobileMenuBtn.classList.remove('active');
+        DOM.navMenu.classList.remove('active');
+      });
     });
   }
 
@@ -921,8 +921,25 @@ function triggerConfetti() {
 /* --- 3D MOUSE TRACKING TILT EFFECT --- */
 
 function apply3DTilt() {
+  const isMobile = window.innerWidth <= 768;
+  
+  if (isMobile) {
+    // Reset cards styles on mobile to ensure clean standard layout
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.style.transform = '';
+      card.style.transition = '';
+      card.style.background = '';
+    });
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.style.transform = '';
+      card.style.transition = '';
+    });
+    return;
+  }
+
   // Product Cards 3D Tilt
   document.addEventListener('mousemove', (e) => {
+    if (window.innerWidth <= 768) return;
     const cards = document.querySelectorAll('.product-card');
     cards.forEach(card => {
       const rect = card.getBoundingClientRect();
@@ -956,6 +973,7 @@ function apply3DTilt() {
   // Category Cards subtle 3D tilt
   document.querySelectorAll('.category-card').forEach(card => {
     card.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 768) return;
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
@@ -969,6 +987,11 @@ function apply3DTilt() {
     });
 
     card.addEventListener('mouseleave', () => {
+      if (window.innerWidth <= 768) {
+        card.style.transform = '';
+        card.style.transition = '';
+        return;
+      }
       card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0) scale(1)';
       card.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
     });
